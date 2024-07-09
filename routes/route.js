@@ -10,7 +10,8 @@ const login = require('../controler/user/loginControler');
 const filterController = require('../controler/user/filterControler');
 const cardController = require('../controler/user/cardControler');
 const adminController = require('../controler/user/adminControler');
-
+const reviewAdd = require('../controler/user/reviewAdd');
+const reviewAll = require('../controler/user/reviewAllControler');
 
 router.get('/admin/filterPost',filterPost);
 router.post('/admin/createPost',upload.single('image'),createPost);
@@ -21,7 +22,8 @@ router.get('/login',login);
 router.get('/filter',filterController);
 router.get('/all',cardController);
 router.get('/admin',adminController);
-
+router.post('/addReview',reviewAdd);
+router.get('/reviewAll',reviewAll);
 
 
 module.exports = router;
