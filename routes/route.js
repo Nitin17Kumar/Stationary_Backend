@@ -18,10 +18,10 @@ router.post('/admin/createPost',upload.single('image'),createPost);
 
 
 router.post('/signup',signup);
-router.get('/login',login);
+router.post('/login',login);
 router.get('/filter',filterController);
 router.get('/all',cardController);
-router.get('/admin',adminController);
+router.post('/admin',adminController);
 router.post('/addReview',reviewAdd);
 router.get('/reviewAll',reviewAll);
 

@@ -5,14 +5,15 @@ require('dotenv').config();
 
 module.exports = async (req, res) => {
   try {
-    const { email, password  } = req.body;
-    
+    const { email, password } = req.body; // Changed from req.body to req.query
+
     if (!email || !password) {
       return res.status(400).json({
         success: false,
         message: 'All fields are required'
       });
     }
+
     let query = {};
     if (email) {
       query.email = email;
@@ -34,10 +35,10 @@ module.exports = async (req, res) => {
     }
 
     const payload = { email: user.email };
-    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '3d' }); 
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '3d' });
 
     const options = {
-      expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), 
+      expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
       httpOnly: true,
     };
     res.cookie('token', token, options);
