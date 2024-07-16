@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
   try {
     const { name, email, image, password, isAdmin } = req.body;
     // Check if all required fields are provided
-    if (!name || !email || !image || !password) {
+    if (!name || !email  || !password) {
       return res.status(400).json({
         success: false,
         message: 'All fields are required'
