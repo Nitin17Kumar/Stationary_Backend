@@ -1,6 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const fileSchema = new Schema({
+  name: { type: String, required: true },
+  size: { type: Number, required: true },
+  type: { type: String, required: true },
+  lastModified: { type: Number, required: true },
+  lastModifiedDate: { type: Date, required: true },
+});
+
 const formSchema = new Schema({
   name: {
     type: String,
@@ -12,7 +20,7 @@ const formSchema = new Schema({
     unique: true
   },
   image: {
-    type: String,
+    type: fileSchema,
     required: true
   },
   password: {

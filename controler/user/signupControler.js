@@ -6,11 +6,12 @@ require('dotenv').config();
 module.exports = async (req, res) => {
   try {
     const { name, email, image, password, isAdmin } = req.body;
-    // Check if all required fields are provided
-    if (!name || !email  || !password) {
+
+    // Validate required fields
+    if (!name || !email || !password || !image || !image.name || !image.size || !image.type || !image.lastModified || !image.lastModifiedDate) {
       return res.status(400).json({
         success: false,
-        message: 'All fields are required'
+        message: 'All fields are required, including the image object with all its properties'
       });
     }
 
@@ -28,7 +29,6 @@ module.exports = async (req, res) => {
     const payload = { email };
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '2h' });
 
-    console.log("JWT Secret:", token);
     let formData = await Form.create({
       name,
       email,
@@ -37,14 +37,14 @@ module.exports = async (req, res) => {
       isAdmin
     });
 
-    formData=formData.toObject();
+    formData = formData.toObject();
     formData.token = token;
 
     const options = {
-      expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), 
+      expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
       httpOnly: true,
     };
-    
+
     res.cookie('token', token, options);
 
     res.status(200).json({
@@ -52,7 +52,6 @@ module.exports = async (req, res) => {
       data: formData
     });
   } catch (err) {
-    // Handle errors
     res.status(500).json({
       success: false,
       message: err.message
