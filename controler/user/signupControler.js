@@ -5,13 +5,14 @@ require('dotenv').config();
 
 module.exports = async (req, res) => {
   try {
-    const { name, email, image, password, isAdmin } = req.body;
+    const { name, email, password, isAdmin } = req.body;
+    const image = req.file;
 
-    // Validate required fields
-    if (!name || !email || !password || !image || !image.name || !image.size || !image.type || !image.lastModified || !image.lastModifiedDate) {
+    // Check if all required fields are provided
+    if (!name || !email || !password ) {
       return res.status(400).json({
         success: false,
-        message: 'All fields are required, including the image object with all its properties'
+        message: 'All fields are required',
       });
     }
 
@@ -20,7 +21,7 @@ module.exports = async (req, res) => {
     if (existingUser) {
       return res.status(400).json({
         success: false,
-        message: 'Email already in use'
+        message: 'Email already in use',
       });
     }
 
@@ -34,7 +35,7 @@ module.exports = async (req, res) => {
       email,
       image,
       password: hashedPassword,
-      isAdmin
+      isAdmin,
     });
 
     formData = formData.toObject();
@@ -49,12 +50,13 @@ module.exports = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      data: formData
+      data: formData,
     });
   } catch (err) {
+    // Handle errors
     res.status(500).json({
       success: false,
-      message: err.message
+      message: err.message,
     });
   }
 };

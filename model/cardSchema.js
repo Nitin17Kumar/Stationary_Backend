@@ -1,14 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const fileSchema = new Schema({
-  name: { type: String, required: true },
-  size: { type: Number, required: true },
-  type: { type: String, required: true },
-  lastModified: { type: Number, required: true },
-  lastModifiedDate: { type: Date, required: true },
-});
-
 const cardSchema = new Schema({
   product_name: {
     type: String,
@@ -25,7 +17,7 @@ const cardSchema = new Schema({
     type: Number,
   },
   image: {
-    type: fileSchema,
+    type: String,
     required: true,
   }
 });
