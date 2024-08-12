@@ -7,7 +7,7 @@ require("dotenv").config();
 
 // Custom CORS options
 const corsOptions = {
-  origin: 'http://localhost:3000', // Replace with your frontend domain
+  origin: 'https://stationary13.netlify.app/', // Replace with your frontend domain
   methods: 'GET,POST,PUT,DELETE',
   allowedHeaders: 'Content-Type,Authorization'
 };
